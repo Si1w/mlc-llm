@@ -14,6 +14,7 @@ from .chatglm3 import chatglm3_loader, chatglm3_model, chatglm3_quantization
 from .cohere import cohere_loader, cohere_model, cohere_quantization
 from .deepseek import deepseek_loader, deepseek_model, deepseek_quantization
 from .deepseek_v2 import deepseek_v2_loader, deepseek_v2_model, deepseek_v2_quantization
+from .edgellm import edgellm_loader, edgellm_model, edgellm_quantization
 from .eagle import eagle_loader, eagle_model, eagle_quantization
 from .gemma import gemma_loader, gemma_model, gemma_quantization
 from .gemma2 import gemma2_loader, gemma2_model, gemma2_quantization
@@ -580,6 +581,20 @@ MODELS: Dict[str, Model] = {
             "ft-quant": nemotron_quantization.ft_quant,
             "awq": nemotron_quantization.awq_quant,
             "per-tensor-quant": nemotron_quantization.per_tensor_quant,
+        },
+    ),
+    "edgellm": Model(
+        name="edgellm",
+        model=edgellm_model.EdgeLLMForCausalLM,
+        config=edgellm_model.EdgeLLMConfig,
+        source={
+            "huggingface-torch": edgellm_loader.huggingface,
+            "huggingface-safetensor": edgellm_loader.huggingface,
+        },
+        quantize={
+            "no-quant": edgellm_quantization.no_quant,
+            "group-quant": edgellm_quantization.group_quant,
+            "ft-quant": edgellm_quantization.ft_quant,
         },
     ),
 }

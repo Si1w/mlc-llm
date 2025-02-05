@@ -10,6 +10,7 @@ from . import (
     cohere,
     deepseek,
     dolly,
+    edgellm,
     gemma,
     glm,
     gorrilla,
