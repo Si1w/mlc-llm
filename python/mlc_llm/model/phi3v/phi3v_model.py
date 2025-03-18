@@ -283,6 +283,7 @@ class Phi3VForCausalLM(nn.Module):
         support_sliding_window: tir.Var,
     ) -> PagedKVCache:
         return PagedKVCache.create_generic(
+            attn_kind="mha",
             max_batch_size=max_batch_size,
             max_total_seq_len=max_total_seq_len,
             prefill_chunk_size=prefill_chunk_size,
@@ -291,7 +292,8 @@ class Phi3VForCausalLM(nn.Module):
             num_hidden_layers=self.num_hidden_layers,
             num_attention_heads=self.num_attention_heads // self.tensor_parallel_shards,
             num_key_value_heads=self.num_key_value_heads // self.tensor_parallel_shards,
-            head_dim=self.head_dim,
+            qk_head_dim=self.head_dim,
+            v_head_dim=self.head_dim,
             rope_mode=RopeMode.NORMAL,
             rope_scaling=self.rope_scaling,
             rope_scale=1,
